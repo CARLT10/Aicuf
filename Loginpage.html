@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICUF</title>
+    <style>
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin: 0;
+        }
+
+        .background {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://shorturl.at/qurOk');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.75;
+            z-index: -1;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            max-width: 90px;
+            height: auto;
+        }
+        
+        .vl {
+            width: 2px;
+            height: 80px;
+            background: radial-gradient(circle, #572110 0%, beige 100%);
+            margin: 0 10px;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #572110;
+        }
+
+        .dropbtn {
+            background-color: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: black;
+            transition: background-color 0.3s;
+        }
+
+        .hamburger.active div {
+            background-color: #572110;
+        }
+
+        /* RHS menu down */
+        .menu {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            z-index: 10;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu a:hover {
+            background-color: #f1f1f1;
+        }
+
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .menu {
+                display: none;
+            }
+
+            .menu.show {
+                display: flex;
+            }
+        }
+
+        /* Login page container */
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            /* Responsive width */
+            max-width: 400px;
+            /* Maximum width */
+            background: rgba(255, 255, 255, 0.601);
+            /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #050505;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 95%;
+            padding: 10px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #5d1320c8;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+
+        }
+
+        button:hover {
+            background-color: #50e750;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background"></div>
+    <header class="header">
+        <div class="logo">
+            <a href="#">
+                <img src="https://aicuf.in/assets/images/aicuf.png" alt="AICUF Logo">
+            </a>
+        </div>
+
+        <div class="vl"></div>
+
+        <div class="logo">
+            <a href="https://www.sju.edu.in">
+                <img src="https://www.sju.edu.in/images/logo.webp" alt="SJU Logo">
+            </a>
+        </div>
+        <nav>
+            <a href="#">HOME</a>
+            <a href="#">ABOUT</a>
+            <a href="#">OBJECTIVES</a>
+            <div class="dropdown">
+                <button class="dropbtn">LOGIN</button>
+                <div class="dropdown-content">
+                    <a href="#section1">Student Login</a>
+                    <a href="#section2">Council Login</a>
+                    <a href="#section3">Coordinator Login</a>
+                </div>
+            </div>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="menu" id="menu">
+            <a href="#">HOME</a>
+            <a href="#">ABOUT</a>
+            <a href="#">OBJECTIVES</a>
+            <div class="dropdown">
+                <button class="dropbtn">LOGIN</button>
+                <div class="dropdown-content">
+                    <a href="#section1">Student Login</a>
+                    <a href="#section2">Council Login</a>
+                    <a href="#section3">Coordinator Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Login Page</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <!-- <div class="form-group">
+            <label for="role">Role:</label>
+            <select id="role" required>
+              <option value="admin">Admin</option>
+              <option value="teacher">Teacher</option>
+              <option value="student">Student</option>
+              <option value="council">Council</option>
+            </select>
+          </div> -->
+            <button type="submit">Login</button>
+        </form>
+        <div id="message"></div>
+    </div>
+    <!-- <div class="info">
+        <h3>Announcements:</h3>
+        <div class="announcements-container">
+            <div class="announcements-scroller">
+                <span>Recent Notice 1 - Important information about upcoming events.</span>
+                <span>Recent Notice 2 - Registration for workshops is now open.</span>
+                <span>Recent Notice 3 - Check out the latest news on our website.</span>
+            </div>
+        </div>
+    </div> -->
+
+    <script>
+        const dropdownButton = document.querySelector('.dropbtn');
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('menu');
+
+        dropdownButton.addEventListener('click', (e) => {
+            e.target.nextElementSibling.classList.toggle('show');
+        });
+
+        hamburger.addEventListener('click', () => {
+            menu.classList.toggle('show');
+            hamburger.classList.toggle('active');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
